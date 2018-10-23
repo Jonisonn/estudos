@@ -1,0 +1,4 @@
+ver sobre:
+botões do modal: <button class= 'botao' onclick="tela('#aluno')">Cadastrar </button>
+						<button class='botao' onclick="esconder_modal()">Voltar</button>
+para ir tela aluno ou tela livro

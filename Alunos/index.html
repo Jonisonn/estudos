@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Sistema Escolar</title>
+	<link rel="stylesheet" type="text/css" href="estilo.css">
+</head>
+<body>
+	<link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Oswald:300' rel='stylesheet' type='text/css'>
+
+	<header class="clearfix">
+	<nav>
+	   <ul id="nav">
+	     <li><a href="#home">Home</a></li>
+	     <li><a href="#alunos">Alunos</a>
+	       <ul>
+	         <li><a href="#cadastrar" onclick="gerador_codigo()">Cadastrar</a></li>
+	         <li><a href="#buscar">Buscar</a></li>
+	         <li><a href="#remover">Remover</a></li>
+	         <li><a href="#atualizar">Atualizar</a></li>
+	       </ul>         
+	     </li>
+	     <li><a href="#listar" onclick="mostrar()">Listar</a></li>
+	    </ul>
+	</nav>
+	</header>
+	<main>
+	<section id="home" class="">
+		Sistema de cadastro de estudantes do Instituto Federal de Mato Grosso do Sul - Campus Dourados
+	</section>
+	<section id="cadastrar" >
+		 <fieldset>
+	   		<legend><span>Cadastro alunos</span></legend>
+	    	<p><input type="number" id="cod_mat" placeholder="Entre com o código de matricula" disabled /></p>
+			<p><input type="text" id="nome" placeholder="Informe um nome" autofocus/></p>
+			<p><input type="number" id="nota1" placeholder="Entre com a nota 1"   /></p>
+			<p><input type="number" id="nota2" placeholder="Entre com a nota 2"  /></p>
+			<button onclick="salvar()">Salvar</button>	
+		</fieldset>	
+	</section>
+	<section id="buscar" >
+		<p><input type="nome" id="nome_pesq" placeholder="Entre com o nome"/></p>
+		<button onclick="pesquisar()">Buscar</button>	
+		<div id="resultado"></div>
+	</section>
+	<section id="remover" >
+		<p><input type="nome" id="nome_rem" placeholder="Entre com o nome"/></p>
+		<button onclick="deletar()">Remover</button>
+	</section>
+	<section id="atualizar">
+		<div id="pesq_at">
+			<p><input type="nome" id="nome_pesq_at" placeholder="Entre com o nome"/></p>
+			<button onclick="pesquisar_at(1)">Buscar</button>
+		</div>
+		<div id="atualizar_dados" class="invisivel">
+			<fieldset>
+		   		<legend><span>Cadastro alunos</span></legend>
+		    	<p><input type="number" id="cod_mat_at" placeholder="Entre com o código de matricula" disabled /></p>
+				<p><input type="text" id="nome_at" placeholder="Informe um nome" autofocus/></p>
+				<p><input type="number" id="nota1_at" placeholder="Entre com a nota 1"   /></p>
+				<p><input type="number" id="nota2_at" placeholder="Entre com a nota 2"  /></p>
+				<button onclick="pesquisar_at(2)">Atualizar</button>	
+			</fieldset>
+		</div>
+	</section>
+	<section id="listar">
+			<div id="lista"></div>
+	</section>
+
+
+	</main>
+	<script type="text/javascript" src="app.js"></script>
+	<script type="text/javascript" src="alunos.js"></script>
+	<script type="text/javascript" src="banco.js"></script>
+</body>
+</html>

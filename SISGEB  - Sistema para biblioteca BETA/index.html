@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Sistema de Biblioteca</title>
+	<link rel="stylesheet" type="text/css" href="css/estilo.css">
+	<link rel="stylesheet" type="text/css" href="css/modal.css">
+</head>
+<body onload="pegarDataAtual()">
+<header>
+  <nav>
+    <ul>
+      <li><a href="#home" >Home</a></li>
+      <li><a href="#aluno" onclick="tela('aluno')">Cadastrar Aluno</a></li>
+      <li><a href="#livro" onclick="tela('livro')">Cadastrar Livro</a></li>
+      <li><a href="#emprestimo" onclick="tela('emprestimo')">Emprestimo</a></li>
+      <li><a href="#atualizar" onclick="tela('atualizar')">Editar informação</a></li>
+    </ul>
+  </nav>
+</header> 
+
+<main>
+  <span id="menu">
+    <img src="http://www.eremit.com.my/images/icon-menu.png" alt="menu">
+  </span>
+  	<section id="home" class="">
+		<h2>
+		O Sistema de Gerenciamento de Bibliotecas ou SISGEB foi criado com o objetivo de automatizar tarefas diárias, aumentando a produtividade e agilidade nos serviços oferecidos.</h2>
+	</section>
+	<section id="aluno" class="invisivel">
+		<form action="#" method="post">
+			<div class="campo">  
+				<h1>Cadastro de alunos</h1>
+			</div>
+    		<fieldset class="grupo">      
+    			<div class="campo">  
+		   			<label for="nome_estudante">Nome</label><input style="width: 29em" type="text" id="nome_estudante" />
+		   		</div>
+		   		
+			</fieldset>
+			<fieldset class="grupo"> 
+				<div class="campo">
+					<label for="cpf">CPF</label><input style="width: 14em" type="text" id="cpf" onKeyPress="MascaraCPF(cpf)" maxlength="14"/>
+				</div>
+				<div class="campo">
+					<label for="matricula">Matricula</label><input style="width: 14em" type="text" id="matricula"/>
+				</div>
+			</fieldset>
+			<fieldset class="grupo"> 
+				<div class="campo">
+					<label for="dt_nasc">Data Nascimento</label><input type="date" id="dt_nasc"/>
+				</div>
+				<div class="campo">
+            		<label for="curso">Curso</label>
+               		<select name="curso" id="curso">
+                    	<option value="">--</option>
+                    	<option value="TI">Técnico em Informática para internet</option>
+                    	<option value="ADM">Técnico em Administração</option>
+                    	<option value="JD">Tecnológo em Jogos Digitais</option>
+                    	<option value="FIC">Cursos FIC</option>
+                	</select>
+            	</div>
+			</fieldset>
+			<fieldset class="grupo"> 	
+				<div class="campo">
+					<label for="telefone">Telefone</label><input style="width: 10em" type="text" id="telefone" onKeyPress="MascaraTelefone(telefone)" maxlength="15"/>
+				</div>
+				<div class="campo">
+					<label for="email">E-mail</label><input style="width: 18em" type="text" id="email"/>
+				</div>
+		 	</fieldset>
+		 	<div class="campo">
+				<button class = "botao" onclick="salvar(2)">Cadastrar</button>
+				<button class = "botao" onclick="">Voltar </button>
+			</div>
+		</form>
+	</section>
+	<section id="livro" class="invisivel">
+		<div class="campo">  
+				<h1>Cadastro de livros</h1>
+			</div>
+		<form action="#" method="post">
+    		<fieldset class="grupo">      
+    			<div class="campo"> 
+					<label for="nome_livro">Nome do Livro</label> <input style="width: 20em" type="text" id="nome_livro" />
+				</div>
+				<div class="campo">
+					<label for="autor">Autor(es)</label> <input style="width: 19em" type="text" id="autor"/>
+				</div>
+			</fieldset>
+			<fieldset class="grupo"> 
+				<div class="campo"> 
+					<label for="cod_livro">Código do Livro</label> <input style="width: 7em" type="text" id="cod_livro"/>
+				</div>
+				<div class="campo"> 
+					<label for="ano">Ano</label> <input style="width: 4em" type="number" id="ano"/>
+				</div>
+				<div class="campo">
+					<label for="editora">Editora</label> <input style="width: 14em" type="text" id="editora"/>
+				</div>
+				<div class="campo">
+					<label for="edicao">Edição</label> <input type="number" id="edicao" style="width: 4em"/>
+				</div>
+			</fieldset>
+			<fieldset class="grupo"> 
+				<div class="campo"> 
+					<label for="area"> Area</label>
+					<select name="area" id="area">
+						<option value="">--</option>
+						<option value="CAE">Agrária e Engenharia</option>
+						<option value="CBS">Biológicas/Saúde</option>
+						<option value="CET">Exatas/Terra</option>
+						<option value="CHCSA">Humanas/Sociais</option>
+						<option value="MDIS">Multidisciplinar</option>
+					</select>
+				</div>
+				<div class="campo"> 
+					<label for="paginas">Paginas</label> <input style="width: 4em" type="number" min="1" id="paginas"/>
+				</div>
+				<div class="campo"> 
+					<label for="estado"> Estado</label>
+					<select name="estado" id="estado">
+						<option value="">--</option>
+						<option value="novo">Novo</option>
+						<option value="seminovo">Seminovo</option>
+						<option value="usado">Usado</option>
+					</select>
+				</div>
+				<div class="campo"> 
+					<label for="quantidade">Qtd Recebido</label> <input style="width: 6em" min="1" type="number" id="quantidade"/>
+				</div>
+				<div class="campo">
+					<label for="quant_empr">Qtd Empréstimo</label> <input style="width: 7em"  min="0" type="number" id="quant_empr"/>
+				</div>
+			</fieldset>
+			<fieldset class="grupo"> 
+				<div class="campo"> 
+					<button class= 'botao' onclick="salvar(1)">Cadastrar </button>
+					<button class= 'botao' onclick="voltar(1)">Voltar </button>
+				</div>
+			</fieldset>
+		</form>
+	</section>
+	<section id="emprestimo" class="invisivel" >
+		<form action="#" method="post">
+			<fieldset class="grupo"> 
+				<div class="campo">
+					<label for="emp_cpf">CPF</label><input style="width: 10em" type="text" id="emp_cpf" onKeyPress="MascaraCPF(emp_cpf)" maxlength="14" onchange="buscar_emp(1)" />
+				</div>
+					<div class="campo">  
+		   			<label for="nome_estudante_e">Nome</label><input style="width: 20em" type="text" id="nome_estudante_e" />
+		   		
+				</div>
+			</fieldset>
+			<fieldset class="grupo">	      
+				<div class="campo"> 
+					<label for="emp_cod_livro">Codigo do Livro</label> <input style="width: 10em" type="text" id="emp_cod_livro" onchange="buscar_emp(2)" />
+				</div>
+				<div class="campo"> 
+					<label for="nome_livro_e">Nome do Livro</label> <input style="width: 20em" type="text" id="nome_livro_e" />
+				</div>
+
+			</fieldset>
+			<fieldset class="grupo">
+				<div class="campo">
+					<label for="emp_data"> Data de empréstimo</label><input type="text" style="width: 10em" id="emp_data" maxlength="10">
+				</div>
+				<div class="campo">
+					<label for="emp_data"> Data de Devolução</label><input type="text"  maxlength="10" style="width: 10em" id="emp_dataDev">
+				</div>
+			</fieldset>
+			<fieldset class="grupo"> 
+				<div class="campo"> 
+					<button class= 'botao' id="btn_emp_s" onclick="emprestar()">Emprestar </button>
+					<button class= 'botao' onclick="voltar(1)" >Voltar </button>
+				</div>
+			</fieldset>
+		</form>
+	</section>
+	<section id="atualizar" class="invisivel">
+	</section>
+	<section>
+	<!-- The Modal -->
+		<div id="myModal" class="modal">
+			<!-- Modal content -->
+			<div class="modal-content">
+				<div class="modal-header">
+				  <span class="close">&times;</span>
+				  <h2>Aviso</h2>
+				</div>
+				<div class="modal-body">
+				  <p id="texto"></p>
+				</div>
+				<div class="modal-footer">
+					<p>
+					<div class="campo" id="rodape"> 
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</main>
+<script type="text/javascript" src="js/modal.js"></script>
+<script type="text/javascript" src="js/banco.js"></script>
+<script type="text/javascript" src="js/estudante.js"></script>
+<script type="text/javascript" src="js/livro.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+<script type="text/javascript" src="js/validacao.js"></script>
+</body>
+</html>
