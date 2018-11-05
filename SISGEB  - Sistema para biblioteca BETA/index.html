@@ -13,8 +13,9 @@
       <li><a href="#home" >Home</a></li>
       <li><a href="#aluno" onclick="tela('aluno')">Cadastrar Aluno</a></li>
       <li><a href="#livro" onclick="tela('livro')">Cadastrar Livro</a></li>
-      <li><a href="#emprestimo" onclick="tela('emprestimo')">Emprestimo</a></li>
       <li><a href="#atualizar" onclick="tela('atualizar')">Editar informação</a></li>
+      <li><a href="#emprestimo" onclick="tela('emprestimo')">Emprestimo</a></li>
+      <li><a href="#devolucao" onclick="tela('devolucao')">Devolução</a></li>
     </ul>
   </nav>
 </header> 
@@ -141,15 +142,18 @@
 			</fieldset>
 		</form>
 	</section>
+
+	<section id="atualizar" class="invisivel">
+	</section>
+	
 	<section id="emprestimo" class="invisivel" >
-		<form action="#" method="post">
+		<form>
 			<fieldset class="grupo"> 
 				<div class="campo">
 					<label for="emp_cpf">CPF</label><input style="width: 10em" type="text" id="emp_cpf" onKeyPress="MascaraCPF(emp_cpf)" maxlength="14" onchange="buscar_emp(1)" />
 				</div>
 					<div class="campo">  
-		   			<label for="nome_estudante_e">Nome</label><input style="width: 20em" type="text" id="nome_estudante_e" />
-		   		
+		   			<label for="nome_estudante_e">Nome</label><input style="width: 20em" type="text" id="nome_estudante_e" />	   		
 				</div>
 			</fieldset>
 			<fieldset class="grupo">	      
@@ -177,7 +181,43 @@
 			</fieldset>
 		</form>
 	</section>
-	<section id="atualizar" class="invisivel">
+	<section id="devolucao" class="invisivel">
+		<form>
+			<fieldset class="grupo"> 
+				<div class="campo">
+					<label for="cpfD">CPF</label><input style="width: 10em" type="text" id="cpfD" onKeyPress="MascaraCPF(cpfD)" maxlength="14" onchange="buscar_emp(3)" />
+				</div>
+					<div class="campo">  
+		   			<label for="nome_estudanteD">Nome</label><input style="width: 20em" type="text" id="nome_estudanteD" readonly="true" />	   		
+				</div>
+			</fieldset>
+			<fieldset class="grupo">	      
+				<div class="campo"> 
+					<label for="cod_livroD">Codigo do Livro</label> <input style="width: 10em" type="text" id="cod_livroD" readonly="true"/>
+				</div>
+				<div class="campo"> 
+					<label for="nome_livroD">Nome do Livro</label> <input style="width: 20em" type="text" id="nome_livroD" readonly="true"/>
+				</div>
+
+			</fieldset>
+			<fieldset class="grupo">
+				<div class="campo">
+					<label for="data_empD"> Data de empréstimo</label><input type="text" style="width: 10em" id="data_empD" maxlength="10" readonly="true">
+				</div>
+				<div class="campo">
+					<label for="data_limiteD"> Data limite Devolução</label><input type="text"  maxlength="10" style="width: 10em" id="data_limiteD" readonly="true" >
+				</div>
+				<div class="campo">
+					<label for="data_devD"> Data de Devolução</label><input type="text"  maxlength="10" style="width: 10em" id="data_devD">
+				</div>
+			</fieldset>
+			<fieldset class="grupo"> 
+				<div class="campo"> 
+					<button class= 'botao' id="btn_empD" onclick="emprestar()">Devolver </button>
+					<button class= 'botao' onclick="voltar()" >Voltar </button>
+				</div>
+			</fieldset>
+		</form>
 	</section>
 	<section>
 	<!-- The Modal -->
@@ -191,9 +231,9 @@
 				<div class="modal-body">
 				  <p id="texto"></p>
 				</div>
-				<div class="modal-footer">
-					<p>
+				<div class="modal-footer">	
 					<div class="campo" id="rodape"> 
+						<p id="rodape_modal"></p>
 					</div>
 				</div>
 			</div>
@@ -204,6 +244,7 @@
 <script type="text/javascript" src="js/banco.js"></script>
 <script type="text/javascript" src="js/estudante.js"></script>
 <script type="text/javascript" src="js/livro.js"></script>
+<script type="text/javascript" src="js/emprestimo.js"></script>
 <script type="text/javascript" src="js/app.js"></script>
 <script type="text/javascript" src="js/validacao.js"></script>
 </body>

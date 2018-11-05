@@ -7,5 +7,6 @@ class Emprestimo{
 		this.nome_aluno = nome;
 		this.cod_livro = cod;
 		this.nome_livro = livro;
+		this.emprestado = true;
 	}
 }

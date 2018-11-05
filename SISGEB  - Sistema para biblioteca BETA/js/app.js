@@ -1,5 +1,8 @@
 var tela_atual = 0;
 var tela_anterior = 0;
+/*Variáveis utilizadas para permitir o empréstimo*/
+var logico_cpf = false;
+var logico_cod = false;
 function tela(op)
 {
   op = op.replace('#', ''); //tirando o # da pagina
@@ -29,6 +32,7 @@ function tela(op)
       document.getElementById(tela_anterior).className = "invisivel";
       document.getElementById(op).className="";
       document.getElementById('nome_livro').focus();
+      document.getElementById('myModal').style.display = "none";
       break;
     case "emprestimo":
       document.getElementById(tela_anterior).className = "invisivel";
@@ -36,6 +40,10 @@ function tela(op)
       document.getElementById('emp_cpf').focus();
       break;
     case "atualizar":
+      document.getElementById(tela_anterior).className = "invisivel";
+      document.getElementById(op).className="";
+      break;
+    case "devolucao":
       document.getElementById(tela_anterior).className = "invisivel";
       document.getElementById(op).className="";
       break;
@@ -103,22 +111,26 @@ function salvar(op)
     case 3:
       emprestar_aluno = false;
       emprestar_livro = false;
-      var cpf_aluno = document.getElementById('emp_cpf').value;
-      var atributo = 'cpf';
-      var bd = new Banco("alunos");
-      var procurando = bd.buscar(cpf_alt, atributo);
-      var nome_aluno = procurando.nome_completo;
-      var cod_liv = document.getElementById('emp_cod_livro').value;
-      var atributo = 'codigo';
-      bd = new Banco("livros");
-      var procurando = bd.buscar(cod_liv, atributo);
-      var nome_livro = procurando.nome;
-      var aluno = new Estudante(data);
-      var bd = new Banco("alunos");
-      bd.inserir(aluno);
-      document.getElementById("btn_emp_s").disabled = true;
-    
+      var nome, data_e, data_d, cpf, nome, cod, livro;
+      nome = document.getElementById('nome_estudante_e').value;
+      cpf = document.getElementById('emp_cpf').value;
+      data_e = document.getElementById('emp_data').value;
+      data_d = document.getElementById('emp_dataDev').value;
+      cod = document.getElementById('emp_cod_livro').value;
+      livro = document.getElementById('nome_livro_e').value;
+      var emprestar = new Emprestimo(data_e, data_d, cpf, nome, cod, livro);
+      var bd = new Banco("emprestimos");
+      bd.inserir(emprestar);
+      var bd1 = new Banco("livros");
+      var procurando = bd1.buscar(cod, "codigo");
+      var posicao = bd1.pegar_posicao(cod,"codigo");
+      alert("agora vai "+procurando.disponivel--); //atualizando a quantidade do livro para emprestimo
+      bd1.atualizar(posicao, procurando);
+      //Mudança no número de livros para emprestimo
+      //fazer depois
     break;
+    case 4:
+
 
   }
 }
@@ -134,6 +146,7 @@ function pegarDataAtual(){
    mes++;
    var data_emp = dia+'/'+mes+'/'+data.getFullYear();
    document.getElementById('emp_data').value = data_emp;
+   document.getElementById('data_devD').value = data_emp;
    adicionarDiasData(7);//Quantidade de dias que será somada na data atual;
 }
 
@@ -143,7 +156,24 @@ function adicionarDiasData(dias){
   var teste = dataVenc.getDate() + "/" + (dataVenc.getMonth() + 1) + "/" + dataVenc.getFullYear();
   document.getElementById('emp_dataDev').value = teste;
 }
- 
+
+//d1 é a data prevista(limite) para a devolução. D2 é a data atual que esta sendo devolvido
+function comparar_datas(d1,d2)
+{
+  var partes1 = d1.split("/");
+  var partes2 = d2.split("/")
+  var data1 = new Date(partes1[2], partes1[1] - 1, partes1[0]);
+  var data2 = new Date(partes2[2], partes2[1] - 1, partes2[0]);
+  if(data1 > data2)
+  {
+   salvar(4);
+  }
+  else
+  {
+    var multa_dias = parseInt((data2-data1)/(24*3600*1000))//Calculo para saber a diferença dos dias
+    agoravai(4, multa_dias);
+  }
+}
 
 var emprestar_aluno = false;
 var emprestar_livro = false;
@@ -165,8 +195,10 @@ function buscar_emp(op)
         {
           document.getElementById('nome_estudante_e').value = procurando.nome_completo;
           emprestar_aluno = true;
+          logico_cpf = true;
           if(procurando.multa)
           {
+            logico_cpf = false;
             alert("Aluno esta com multa até dia: "+procurando.data_multa);
             document.getElementById('emp_cpf').focus();
           }
@@ -184,26 +216,43 @@ function buscar_emp(op)
       if(procurando == undefined)
         {
           agoravai(2);
-         document.getElementById('emp_cpf').focus();
+          document.getElementById('emp_cpf').focus();
         }
         else
         {
           emprestar_livro = true;
-          document.getElementById('nome_livro_e').value =procurando.nome ;
+          logico_cod = true;
+          document.getElementById('nome_livro_e').value =procurando.nome;
           if(emprestar_aluno)
           {
-            if(procurando.quantidade == 0 )
-            {
+            if(procurando.disponivel == 0 )
+            {//Arrumar o model
+              logico_cod = false;
               alert("O livro não esta mais disponivel para empréstimo")
             }
           //  document.getElementById("btn_emp_s").disabled = false;
           }
         }
       break;
+    case 3:
+      var cpf_alt = document.getElementById('cpfD').value;
+      var atributo = 'cpf_aluno';
+      var bd = new Banco("emprestimos");
+      var procurando = bd.buscar(cpf_alt, atributo);
+      if(procurando == undefined)
+        {
+          agoravai(1);
+          document.getElementById('cpfD').focus();
+        }
+        else
+        {
+          document.getElementById('nome_estudanteD').value = procurando.nome_aluno;
+          document.getElementById('cod_livroD').value = procurando.cod_livro;
+          document.getElementById('nome_livroD').value = procurando.nome_livro;
+          document.getElementById('data_empD').value = procurando.data_empr;
+          document.getElementById('data_limiteD').value = procurando.data_dev;
+          comparar_datas(procurando.data_dev, document.getElementById('data_devD').value);
+        }
+      break;
   }
-}
-
-function emprestar()
-{
-  
 }

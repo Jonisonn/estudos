@@ -16,7 +16,7 @@ class Banco{
 	buscar(nome	, atrib)//Método responsável por buscar um determinado valor no banco
 	//Parametros: nome: Elemento que esta sendo pesquisado; Atrib: atributo que onde o nome esta armazenado na classe
 	{
-		if(localStorage.length == 0 )
+		if(localStorage.length == 0 || !localStorage.getItem(this.nome_banco) )
 		{
 			return undefined;
 		}
@@ -25,18 +25,11 @@ class Banco{
 			return this.dados.find(function(item) {
 				return item[atrib].localeCompare(nome) == 0;
 			});
-			for(var i=0; i < this.dados.length;i++)
-			{
-				if(this.dados.atrib == nome)
-				{
-					return this.dados[i];
-				}
-			}
 		}
 	}
 	pegar_posicao(nome, atrib)
 	{
-		if(localStorage.length == 0 )
+		if(localStorage.length == 0 || !localStorage.getItem(this.nome_banco))
 		{
 			return undefined;
 		}

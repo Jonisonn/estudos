@@ -58,21 +58,46 @@ function formataCampo(campo, Mascara, evento) {
 
 function emprestar()
 {
-    if(emp_cpf.value == "")
+    if(logico_cod && logico_cpf)
     {
-        aviso(1, emp_cpf)
-    }  
-    if(emp_cod_livro.value == "")
-    {
-        aviso(2,emp_cod_livro);
+        var validado = true; 
+        if(emp_cpf.value == "")
+        {
+            aviso(1, emp_cpf);
+            validado = false;
+        }  
+        else
+        {
+            if(emp_cod_livro.value == "")
+            {
+                aviso(2,emp_cod_livro);
+                validado = false;
+            }
+            else
+            {
+                if(emp_data.value == "")
+                {
+                    aviso(3,emp_data);
+                    validado = false;
+                }
+                else
+                {
+                    if(emp_dataDev.value == "")
+                    {
+                        aviso(4, emp_dataDev);
+                        validado = false;
+                    }
+                }
+            }
+        }
+        if(validado)
+        {
+            salvar(3);
+        }
     }
-    if(emp_data.value == "")
+    else
     {
-        aviso(3,emp_data)
-    }
-    if(emp_dataDev.value == "")
-    {
-        aviso(4, emp_dataDev)
+        agoravai(3);
     }
 }
 

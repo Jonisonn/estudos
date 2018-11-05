@@ -13,6 +13,6 @@ class Livro
 		this.estado = estado;
 		this.quantidade = quantidade;
 		this.quant_empres = q_empres;
-		this.diponivel = q_empres; //Esse atributo servirá como contador para saber quando o livro não esta mais disponivel para empréstimo
+		this.disponivel = q_empres; //Esse atributo servirá como contador para saber quando o livro não esta mais disponivel para empréstimo
 	}
 }
