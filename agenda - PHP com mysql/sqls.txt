@@ -1,0 +1,10 @@
+Create table contatinhos (
+ID Int UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
+nome Varchar(50),
+telefone varchar(16),
+email Varchar(50),
+Primary Key (ID)) ENGINE = MyISAM;
+
+
+
+referencia: https://www.devmedia.com.br/criando-um-sistema-de-cadastro-e-login-com-php-e-mysql/37213
